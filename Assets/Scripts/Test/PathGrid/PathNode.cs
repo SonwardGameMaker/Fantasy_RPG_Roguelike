@@ -11,10 +11,11 @@ public class PathNode
     public int gCost;
     public int hCost;
     public int fCost;
-    public List<PathWall> walls;
+    [SerializeField] private List<PathWall> walls;
 
     public bool isWalkable;
     public PathNode cameFromNode;
+    public List<PathWall> Walls { get { return walls; } }
 
     public PathNode(PathGrid grid, int x, int y, bool isWalkable = true)
     {
@@ -27,5 +28,15 @@ public class PathNode
     {
         fCost = gCost + hCost;
     }
+    public bool AddWall(PathWall wall)
+    {
 
+        foreach (PathWall iter in walls)
+        {
+            if (iter.Position == wall.Position) return false;
+        }
+
+        walls.Add(wall);
+        return true;
+    }
 }
