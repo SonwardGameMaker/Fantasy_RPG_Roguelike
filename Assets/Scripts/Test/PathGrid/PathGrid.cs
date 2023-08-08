@@ -76,9 +76,17 @@ public class PathGrid : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < transform.GetChild(0).childCount; i++)
+        Transform walls = transform.GetChild(0);
+        for (int i = 0; i < walls.childCount; i++)
         {
-
+            if (walls.GetChild(i).position.x >= 0 
+                && walls.GetChild(i).position.x <= width 
+                && walls.GetChild(i).position.y >= 0 
+                && walls.GetChild(i).position.x <= height)
+            {
+                GetNode(walls.GetChild(i).position.x, walls.GetChild(i).position.y)
+                    .AddWall(walls.GetChild(i).GetComponent<PathWall>());
+            }
         }
     }
 
